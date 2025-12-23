@@ -2,6 +2,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
+// import Vant from 'vant'
+// import 'vant/lib/index.css'
+import '@/utils/vant-ui'
+import ArticleItem from '@/views/ArticleItem'
+// Vue.use(Vant)
+Vue.component('ArticleItem', ArticleItem)
 Vue.config.productionTip = false
 
 new Vue({
