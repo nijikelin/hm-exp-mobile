@@ -1,11 +1,16 @@
 <template>
   <div class="article-page">
     <nav class="my-nav van-hairline--bottom">
-      <a href="javascript:;">推荐</a>
-      <a href="javascript:;">最新</a>
+      <a :class="{active: sorter==='weight_desc'}"  href="javascript:;" @click="changeSorter('weight_desc')">推荐</a>
+      <a :class="{active: sorter===null}" href="javascript:;" @click="changeSorter(null)">最新</a>
       <div class="logo"><img src="@/assets/logo.png" alt="" /></div>
     </nav>
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
       <ArticleItem
         v-for="item in list"
         :key="item.id"
@@ -42,6 +47,16 @@ export default {
       if (this.current > res.data.pageTotal) {
         this.finished = true
       }
+      console.log(this.list)
+    },
+    changeSorter (value) {
+      this.sorter = value
+      this.current = 1
+      this.list = []
+      this.finished = false
+      // loading = true避免重复请求
+      this.loading = true
+      this.onLoad()
     }
   }
 }

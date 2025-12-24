@@ -1,17 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import Register from '@/views/Register'
-import Login from '@/views/Login'
-import Layout from '@/views/Layout'
-import Detail from '@/views/Detail'
-
-import Article from '@/views/Article'
-import Like from '@/views/Like'
-import Collect from '@/views/Collect'
-import User from '@/views/User'
-
 import { getToken } from '../utils/storage'
+
+const Layout = () => import('@/views/Layout')
+const Login = () => import('@/views/Login')
+const Detail = () => import('@/views/Detail')
+const Article = () => import('@/views/Article')
+const Register = () => import('@/views/Register')
+const Like = () => import('@/views/Like')
+const Collect = () => import('@/views/Collect')
+const User = () => import('@/views/User')
 
 Vue.use(VueRouter)
 const whiteList = ['/register', '/login']

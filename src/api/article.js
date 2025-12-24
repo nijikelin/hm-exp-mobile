@@ -13,3 +13,26 @@ export const getArticles = (obj) => {
     // }
   })
 }
+export const getArticleDetail = (id) => {
+  return request.get('interview/show', {
+    params: {
+      id
+    }
+  })
+}
+export const getArticleLike = (id, optType) => {
+  return request.post('/interview/opt', {
+    id,
+    optType
+
+  })
+}
+export const getArticleLikeColl = (obj) => {
+  return request.get('/interview/opt/list', {
+    params: {
+      optType: obj.optType,
+      pageSize: obj.pageSize,
+      page: obj.page
+    }
+  })
+}
