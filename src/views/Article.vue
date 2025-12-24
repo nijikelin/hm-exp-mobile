@@ -5,7 +5,13 @@
       <a href="javascript:;">最新</a>
       <div class="logo"><img src="@/assets/logo.png" alt="" /></div>
     </nav>
-    <ArticleItem v-for='item in list' :key="item.id" :item ='item'></ArticleItem>
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <ArticleItem
+        v-for="item in list"
+        :key="item.id"
+        :item="item"
+      ></ArticleItem>
+    </van-list>
   </div>
 </template>
 
@@ -15,21 +21,28 @@ export default {
   name: 'article-page',
   data () {
     return {
-      current: 1,
+      current: 51,
       pageSize: 10,
       sorter: 'weight_desc',
-      list: []
+      list: [],
+      loading: false,
+      finished: false
     }
   },
-  methods: {},
-  async created () {
-    const res = await getArticles({
-      current: this.current,
-      pageSize: this.pageSize,
-      sorter: this.sorter
-    })
-    this.list = res.data.data.rows
-    console.log(res)
+  methods: {
+    async onLoad () {
+      const res = await getArticles({
+        current: this.current,
+        pageSize: this.pageSize,
+        sorter: this.sorter
+      })
+      this.list.push(...res.data.rows)
+      this.loading = false
+      this.current++
+      if (this.current > res.data.pageTotal) {
+        this.finished = true
+      }
+    }
   }
 }
 </script>
